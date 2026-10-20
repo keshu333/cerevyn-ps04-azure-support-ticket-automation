@@ -14,11 +14,15 @@ The system ingests customer support complaints, classifies them into functional 
 
 ## Candidate Information
 
-- **Candidate Name**: `[Candidate Name]`
-- **Candidate Roll Number / ID**: `[Candidate Roll Number]`
-- **Branch / Specialization**: `[Candidate Branch / Degree]`
-- **Problem Statement ID**: `PS04 — Azure Support Ticket Automation`
+- **Candidate Name**: Keshav Saini
+- **Candidate Roll Number / ID**: 2310990545
+- **Degree & Branch**: B.E. Computer Science and Engineering (CSE)
+- **Institution**: Chitkara University
+- **Problem Statement ID**: PS04 — Azure Support Ticket Automation
+- **Assessment Track**: AI automation with Azure implementation
 - **Assessment Target**: Cerevyn Solutions Software Developer Trainee Technical Assessment
+- **GitHub Repository**: [https://github.com/keshu333/cerevyn-ps04-azure-support-ticket-automation](https://github.com/keshu333/cerevyn-ps04-azure-support-ticket-automation)
+- **Verified CI Run**: [GitHub Actions Run #39422890087 (Passed)](https://github.com/keshu333/cerevyn-ps04-azure-support-ticket-automation/actions/runs/39422890087)
 
 ---
 
@@ -394,6 +398,7 @@ $$\text{Priority Accuracy} = \frac{11}{12} \times 100 = 91.67\%$$
 - Triggers on every push and pull request to `main`.
 - Runs on Ubuntu with Python 3.11.
 - Validates syntax, installs dependencies, executes pytest test suite (16 tests), executes the classifier evaluation script, and runs the end-to-end demo.
+- **Verified Passing Run**: [Run #39422890087](https://github.com/keshu333/cerevyn-ps04-azure-support-ticket-automation/actions/runs/39422890087) (All steps passed successfully).
 
 ### Manual Azure Deployment Workflow (`.github/workflows/deploy-azure.yml`)
 - Triggered manually via `workflow_dispatch`.
