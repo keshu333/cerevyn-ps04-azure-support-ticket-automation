@@ -151,7 +151,7 @@ To allow `.github/workflows/deploy-azure.yml` to deploy without storing permanen
    az ad app federated-credential create --id $APP_ID --parameters '{
      "name": "github-actions-main-branch",
      "issuer": "https://token.actions.githubusercontent.com",
-     "subject": "repo:<YOUR_GITHUB_ORG>/<YOUR_REPO>:ref:refs/heads/main",
+     "subject": "repo:keshu333/cerevyn-ps04-azure-support-ticket-automation:ref:refs/heads/main",
      "audiences": ["api://AzureADTokenExchange"]
    }'
    ```

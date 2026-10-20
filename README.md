@@ -1,6 +1,6 @@
 # Cerevyn Solutions PS04 — Azure Support Ticket Automation
 
-[![CI](https://github.com/placeholder-org/cerevyn-ps04/actions/workflows/ci.yml/badge.svg)](https://github.com/placeholder-org/cerevyn-ps04/actions/workflows/ci.yml)
+[![CI](https://github.com/keshu333/cerevyn-ps04-azure-support-ticket-automation/actions/workflows/ci.yml/badge.svg)](https://github.com/keshu333/cerevyn-ps04-azure-support-ticket-automation/actions/workflows/ci.yml)
 [![Python Version](https://img.shields.io/badge/python-3.9%20%7C%203.11-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com)
 [![Pydantic v2](https://img.shields.io/badge/Pydantic-v2.13+-e92063.svg)](https://docs.pydantic.dev)
@@ -139,7 +139,7 @@ cerevyn-ps04/
 
 ### 1. Clone & Navigate to Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/keshu333/cerevyn-ps04-azure-support-ticket-automation.git
 cd "Azure Support Ticket Automation"
 ```
 
