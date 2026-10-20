@@ -1,0 +1,33 @@
+# Git and IDE metadata
+.git/
+.gitignore
+.github/
+.idea/
+.vscode/
+.DS_Store
+
+# Python environment and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases and secrets
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+data/*.sqlite
+.env
+.env.*
+!.env.example
+
+# Test suite and docs (keep image lean)
+tests/
+docs/
+*.md

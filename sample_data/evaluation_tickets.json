@@ -1,0 +1,110 @@
+[
+  {
+    "ticket_id": "EVAL-001",
+    "message": "I was charged twice on my credit card for the annual plan renewal. Need an immediate refund.",
+    "expected_category": "Billing",
+    "expected_priority": "High",
+    "expected_team": "Billing Support",
+    "expect_review": false,
+    "description": "Clear duplicate billing charge with financial impact."
+  },
+  {
+    "ticket_id": "EVAL-002",
+    "message": "Service outage: production database cluster crashed and the entire team is blocked from working.",
+    "expected_category": "Technical",
+    "expected_priority": "High",
+    "expected_team": "Technical Support",
+    "expect_review": false,
+    "description": "Complete production outage affecting the organization."
+  },
+  {
+    "ticket_id": "EVAL-003",
+    "message": "Security breach warning: suspected unauthorized access from an unrecognized device in Ukraine.",
+    "expected_category": "Access",
+    "expected_priority": "High",
+    "expected_team": "Account Support",
+    "expect_review": false,
+    "description": "Unauthorized access / account compromised alert."
+  },
+  {
+    "ticket_id": "EVAL-004",
+    "message": "Where can I read the documentation and user guide for configuring SAML single sign-on SSO?",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "expected_team": "General Support",
+    "expect_review": false,
+    "description": "Documentation inquiry."
+  },
+  {
+    "ticket_id": "EVAL-005",
+    "message": "Could you provide a breakdown of the sales tax and service fee on invoice INV-7729?",
+    "expected_category": "Billing",
+    "expected_priority": "Low",
+    "expected_team": "Billing Support",
+    "expect_review": false,
+    "description": "Routine invoice inquiry without dispute."
+  },
+  {
+    "ticket_id": "EVAL-006",
+    "message": "The analytics dashboard export feature has a bug and throws a 500 internal server error.",
+    "expected_category": "Technical",
+    "expected_priority": "Medium",
+    "expected_team": "Technical Support",
+    "expect_review": false,
+    "description": "Core export feature failing with 500 error."
+  },
+  {
+    "ticket_id": "EVAL-007",
+    "message": "User locked out after their phone was replaced and their 2fa authenticator code stopped generating.",
+    "expected_category": "Access",
+    "expected_priority": "Medium",
+    "expected_team": "Account Support",
+    "expect_review": false,
+    "description": "Lockout due to two-factor device change."
+  },
+  {
+    "ticket_id": "EVAL-008",
+    "message": "How do I change the default timezone displayed on our workspace dashboard?",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "expected_team": "General Support",
+    "expect_review": false,
+    "description": "Standard how-to question."
+  },
+  {
+    "ticket_id": "EVAL-009",
+    "message": "Payment failed during renewal checkout and my card was charged but no subscription was activated.",
+    "expected_category": "Billing",
+    "expected_priority": "High",
+    "expected_team": "Billing Support",
+    "expect_review": false,
+    "description": "Failed transaction with charged card."
+  },
+  {
+    "ticket_id": "EVAL-010",
+    "message": "The iOS mobile app is broken and crashes on startup after the recent 2.4.1 release update.",
+    "expected_category": "Technical",
+    "expected_priority": "Medium",
+    "expected_team": "Technical Support",
+    "expect_review": false,
+    "description": "App crash on launch."
+  },
+  {
+    "ticket_id": "EVAL-011",
+    "message": "Can someone please take a look at our account setup? Something seems off.",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "expected_team": "General Support",
+    "expect_review": true,
+    "description": "Vague inquiry with zero domain keywords, requires human review."
+  },
+  {
+    "ticket_id": "EVAL-012",
+    "message": "My password reset link sent me to an invoice payment page with a 500 crash error.",
+    "expected_category": "Access",
+    "expected_priority": "Medium",
+    "expected_team": "Account Support",
+    "expect_review": true,
+    "description": "Multi-category ambiguous ticket (password reset + invoice + 500 crash)."
+  }
+]

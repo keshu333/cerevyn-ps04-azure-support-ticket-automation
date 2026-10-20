@@ -1,0 +1,91 @@
+name: Deploy to Azure App Service (Manual OIDC)
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: "Target deployment environment"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy API to Azure App Service
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.target_environment }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Validate Deployment Configuration Secrets
+        run: |
+          echo "Validating required GitHub Actions OIDC secrets..."
+          MISSING_CONFIG=0
+
+          if [ -z "${{ secrets.AZURE_CLIENT_ID }}" ]; then
+            echo "::error::Missing secret: AZURE_CLIENT_ID. Please configure in Repository Settings -> Secrets and variables -> Actions."
+            MISSING_CONFIG=1
+          fi
+
+          if [ -z "${{ secrets.AZURE_TENANT_ID }}" ]; then
+            echo "::error::Missing secret: AZURE_TENANT_ID. Please configure in Repository Settings -> Secrets and variables -> Actions."
+            MISSING_CONFIG=1
+          fi
+
+          if [ -z "${{ secrets.AZURE_SUBSCRIPTION_ID }}" ]; then
+            echo "::error::Missing secret: AZURE_SUBSCRIPTION_ID. Please configure in Repository Settings -> Secrets and variables -> Actions."
+            MISSING_CONFIG=1
+          fi
+
+          if [ -z "${{ vars.AZURE_WEBAPP_NAME }}" ] && [ -z "${{ secrets.AZURE_WEBAPP_NAME }}" ]; then
+            echo "::error::Missing configuration: AZURE_WEBAPP_NAME. Please set as a GitHub Actions variable or secret."
+            MISSING_CONFIG=1
+          fi
+
+          if [ "$MISSING_CONFIG" -eq 1 ]; then
+            echo "Deployment halted: Missing required Azure federated identity configuration."
+            echo "Refer to docs/azure-plan.md for step-by-step federated credential setup instructions."
+            exit 1
+          fi
+          echo "All required Azure deployment configurations are present."
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Dependencies & Run Tests Before Deployment
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pytest -v tests/
+
+      - name: Log in to Azure using OIDC Federated Credentials
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure App Service Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_WEBAPP_NAME || secrets.AZURE_WEBAPP_NAME }}
+          package: .
+
+      - name: Verify Web App Health Check
+        run: |
+          APP_NAME="${{ vars.AZURE_WEBAPP_NAME || secrets.AZURE_WEBAPP_NAME }}"
+          APP_URL="https://${APP_NAME}.azurewebsites.net/health"
+          echo "Verifying health endpoint at: $APP_URL"
+          curl -f -m 30 "$APP_URL" || echo "Note: Initial warmup request may take a moment on cold start."

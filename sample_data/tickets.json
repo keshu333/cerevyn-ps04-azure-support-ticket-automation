@@ -1,0 +1,226 @@
+[
+  {
+    "ticket_id": "TCK-001",
+    "message": "I was charged twice for the same order yesterday on my credit card. Please help.",
+    "expected_category": "Billing",
+    "expected_priority": "High",
+    "notes": "Direct duplicate charge with financial impact."
+  },
+  {
+    "ticket_id": "TCK-002",
+    "message": "Complete outage in our East US region. All production servers are down and users cannot reach the portal.",
+    "expected_category": "Technical",
+    "expected_priority": "High",
+    "notes": "Full service outage affecting production."
+  },
+  {
+    "ticket_id": "TCK-003",
+    "message": "Suspected unauthorized access to my administrator account. I received a suspicious login alert from an unknown IP in Russia.",
+    "expected_category": "Access",
+    "expected_priority": "High",
+    "notes": "Account compromise and security breach indicator."
+  },
+  {
+    "ticket_id": "TCK-004",
+    "message": "Where can I find the documentation and user guide for setting up webhook integrations?",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "notes": "General documentation query."
+  },
+  {
+    "ticket_id": "TCK-005",
+    "message": "My monthly subscription invoice has an incorrect charge of $150 instead of the agreed $99 pricing plan.",
+    "expected_category": "Billing",
+    "expected_priority": "Medium",
+    "notes": "Invoice discrepancy without duplicate transaction."
+  },
+  {
+    "ticket_id": "TCK-006",
+    "message": "The analytics report export feature throws a 500 internal server error when filtering by date range.",
+    "expected_category": "Technical",
+    "expected_priority": "Medium",
+    "notes": "Specific feature malfunction blocking reporting workflow."
+  },
+  {
+    "ticket_id": "TCK-007",
+    "message": "I am locked out of my corporate portal because my two-factor 2FA authenticator app was wiped after my phone reset.",
+    "expected_category": "Access",
+    "expected_priority": "Medium",
+    "notes": "User lockout due to MFA loss."
+  },
+  {
+    "ticket_id": "TCK-008",
+    "message": "How do I invite secondary team members to our workspace and assign them read-only permissions?",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "notes": "How-to inquiry regarding team management."
+  },
+  {
+    "ticket_id": "TCK-009",
+    "message": "Unauthorized charge of $499 appeared on my company debit card from your billing descriptor.",
+    "expected_category": "Billing",
+    "expected_priority": "High",
+    "notes": "Fraudulent/unauthorized transaction."
+  },
+  {
+    "ticket_id": "TCK-010",
+    "message": "Our entire engineering team is blocked because the API endpoint /api/v1/orders is failing with 504 gateway timeout.",
+    "expected_category": "Technical",
+    "expected_priority": "High",
+    "notes": "Critical API failure blocking entire team."
+  },
+  {
+    "ticket_id": "TCK-011",
+    "message": "We need to reset password for our finance officer who forgot password after returning from medical leave.",
+    "expected_category": "Access",
+    "expected_priority": "Medium",
+    "notes": "Password reset request."
+  },
+  {
+    "ticket_id": "TCK-012",
+    "message": "Could you provide information on your public roadmap and upcoming feature releases for Q3?",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "notes": "Roadmap inquiry."
+  },
+  {
+    "ticket_id": "TCK-013",
+    "message": "Can I receive a VAT receipt for invoice INV-9042 for our tax filing records?",
+    "expected_category": "Billing",
+    "expected_priority": "Low",
+    "notes": "Routine receipt request."
+  },
+  {
+    "ticket_id": "TCK-014",
+    "message": "The dashboard is rendering very slow today, taking over 15 seconds to load charts.",
+    "expected_category": "Technical",
+    "expected_priority": "Medium",
+    "notes": "Performance latency issue."
+  },
+  {
+    "ticket_id": "TCK-015",
+    "message": "User gets 'permission denied' when attempting to view audit logs in the security tab.",
+    "expected_category": "Access",
+    "expected_priority": "Medium",
+    "notes": "Access permissions issue."
+  },
+  {
+    "ticket_id": "TCK-016",
+    "message": "What are your standard support hours and SLA response times for enterprise tier plans?",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "notes": "Support hours inquiry."
+  },
+  {
+    "ticket_id": "TCK-017",
+    "message": "Payment failed during renewal checkout but my bank account was deducted without order confirmation.",
+    "expected_category": "Billing",
+    "expected_priority": "High",
+    "notes": "Payment failure with money deducted."
+  },
+  {
+    "ticket_id": "TCK-018",
+    "message": "Desktop client application crashed immediately upon startup with nullpointer stack trace on macOS Sonoma.",
+    "expected_category": "Technical",
+    "expected_priority": "Medium",
+    "notes": "Crash on startup."
+  },
+  {
+    "ticket_id": "TCK-019",
+    "message": "Our single sign-on SSO authentication via Okta is failing with session expired error across all departments.",
+    "expected_category": "Access",
+    "expected_priority": "Medium",
+    "notes": "SSO login failure."
+  },
+  {
+    "ticket_id": "TCK-020",
+    "message": "I would like to submit a feature request to add dark mode theme support to the web client.",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "notes": "Feature suggestion."
+  },
+  {
+    "ticket_id": "TCK-021",
+    "message": "Please update our payment method on file to our new Mastercard ending in 4112 for future subscription renewals.",
+    "expected_category": "Billing",
+    "expected_priority": "Low",
+    "notes": "Payment method update."
+  },
+  {
+    "ticket_id": "TCK-022",
+    "message": "The search indexing job failed to load new records with database connection timeout error code DB-991.",
+    "expected_category": "Technical",
+    "expected_priority": "Medium",
+    "notes": "Database connection error."
+  },
+  {
+    "ticket_id": "TCK-023",
+    "message": "Need urgent account unlock: user entered incorrect credentials 5 times and account was compromised alert was triggered.",
+    "expected_category": "Access",
+    "expected_priority": "High",
+    "notes": "Account compromised lockout."
+  },
+  {
+    "ticket_id": "TCK-024",
+    "message": "Can you share contact sales details for enterprise annual volume discount pricing plans?",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "notes": "Sales inquiry."
+  },
+  {
+    "ticket_id": "TCK-025",
+    "message": "We were double billing charged for seat licenses after downgrading our subscription last week.",
+    "expected_category": "Billing",
+    "expected_priority": "High",
+    "notes": "Double billing after plan change."
+  },
+  {
+    "ticket_id": "TCK-026",
+    "message": "System down: our customer-facing web portal returns 502 bad gateway for all users globally.",
+    "expected_category": "Technical",
+    "expected_priority": "High",
+    "notes": "Global 502 outage."
+  },
+  {
+    "ticket_id": "TCK-027",
+    "message": "My account was hacked and our team API credentials were stolen and leaked online.",
+    "expected_category": "Access",
+    "expected_priority": "High",
+    "notes": "Security breach and stolen credentials."
+  },
+  {
+    "ticket_id": "TCK-028",
+    "message": "I have general feedback regarding the updated typography in the settings screen.",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "notes": "UI feedback."
+  },
+  {
+    "ticket_id": "TCK-029",
+    "message": "I paid the invoice last Friday via wire transfer but my account still shows payment overdue warning.",
+    "expected_category": "Billing",
+    "expected_priority": "Medium",
+    "notes": "Payment status discrepancy."
+  },
+  {
+    "ticket_id": "TCK-030",
+    "message": "PDF generator glitch renders garbled text when exporting reports containing Unicode characters.",
+    "expected_category": "Technical",
+    "expected_priority": "Medium",
+    "notes": "Encoding bug."
+  },
+  {
+    "ticket_id": "TCK-031",
+    "message": "I cannot login to download my invoice because my password expired and reset link fails.",
+    "expected_category": "Access",
+    "expected_priority": "Medium",
+    "notes": "Ambiguous overlap between Access (login, password) and Billing (invoice). Access takes precedence as user is blocked."
+  },
+  {
+    "ticket_id": "TCK-032",
+    "message": "Hello, I wanted to say thank you to your support agent Sarah who helped me yesterday.",
+    "expected_category": "General",
+    "expected_priority": "Low",
+    "notes": "Kudos / non-issue general communication."
+  }
+]
