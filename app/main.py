@@ -5,10 +5,11 @@ error handlers, and route mounts.
 """
 
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import AsyncGenerator
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 from app.api.routes import router
 from app.config import settings
@@ -51,9 +52,15 @@ app.add_middleware(
 app.include_router(router)
 
 
-@app.get("/", summary="API Root", include_in_schema=False)
-def root_redirect():
-    """Root endpoint welcoming developers and directing to interactive documentation."""
+STATIC_INDEX = Path(__file__).resolve().parent / "static" / "index.html"
+
+
+@app.get("/", summary="Web Dashboard UI", include_in_schema=False)
+@app.get("/dashboard", summary="Web Dashboard UI", include_in_schema=False)
+def dashboard():
+    """Serve the interactive web frontend dashboard."""
+    if STATIC_INDEX.exists():
+        return FileResponse(STATIC_INDEX)
     return {
         "message": "Welcome to Cerevyn Solutions PS04 - Azure Support Ticket Automation API",
         "documentation": "/docs",

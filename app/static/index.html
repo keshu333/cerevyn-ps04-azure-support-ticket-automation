@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cerevyn Solutions PS04 — Support Ticket Automation Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --purple: #8b5cf6;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+    .header-title h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge-tag {
+      background: #1e3a8a;
+      color: #93c5fd;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .header-sub {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .candidate-info {
+      text-align: right;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    .candidate-info strong {
+      color: #60a5fa;
+    }
+    .header-links {
+      margin-top: 6px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .header-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 2px 8px;
+      background: #334155;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .header-links a:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .stat-val {
+      font-size: 26px;
+      font-weight: 700;
+      margin-top: 4px;
+      color: #fff;
+    }
+    .stat-total { color: #60a5fa; }
+    .stat-pending { color: var(--warning); }
+    .stat-ready { color: var(--success); }
+    .stat-review { color: #f43f5e; }
+
+    /* Main Container */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 24px;
+    }
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .panel-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #cbd5e1;
+    }
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus, textarea:focus {
+      border-color: var(--primary);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-secondary {
+      background: #334155;
+      color: #e2e8f0;
+      padding: 8px 12px;
+      white-space: nowrap;
+    }
+    .btn-secondary:hover {
+      background: #475569;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 18px;
+      width: 100%;
+      font-size: 14px;
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Quick Presets */
+    .preset-title {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .preset-chip {
+      background: #1e293b;
+      border: 1px solid #475569;
+      color: #cbd5e1;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .preset-chip:hover {
+      background: #334155;
+      border-color: #60a5fa;
+      color: #fff;
+    }
+
+    /* Live Output Box */
+    .live-output {
+      margin-top: 20px;
+      padding: 16px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      display: none;
+    }
+    .live-output h3 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #60a5fa;
+    }
+    .meta-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .pill {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .pill-billing { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid #2563eb; }
+    .pill-technical { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid #9333ea; }
+    .pill-access { background: rgba(236, 72, 153, 0.2); color: #fbcfe8; border: 1px solid #db2777; }
+    .pill-general { background: rgba(100, 116, 139, 0.2); color: #cbd5e1; border: 1px solid #64748b; }
+
+    .prio-high { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #dc2626; }
+    .prio-medium { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid #d97706; }
+    .prio-low { background: rgba(16, 185, 129, 0.2); color: #a7f3d0; border: 1px solid #059669; }
+
+    .status-pending { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid #b45309; }
+    .status-ready { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid #047857; }
+
+    .draft-preview {
+      background: #1e293b;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      font-family: monospace;
+      margin-top: 8px;
+      border-left: 3px solid #3b82f6;
+    }
+
+    /* Queue Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .filter-btn {
+      background: #1e293b;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Ticket Cards */
+    .ticket-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 650px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .ticket-card {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .ticket-card:hover {
+      border-color: #475569;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .card-id {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-summary {
+      font-size: 13px;
+      font-weight: 500;
+      color: #e2e8f0;
+      margin-bottom: 6px;
+    }
+    .card-message {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1e293b;
+      padding-top: 10px;
+      margin-top: 8px;
+    }
+    .audit-text {
+      font-size: 11px;
+      color: #64748b;
+    }
+    .btn-approve {
+      background: #059669;
+      color: #fff;
+      padding: 6px 14px;
+      font-size: 12px;
+    }
+    .btn-approve:hover {
+      background: #10b981;
+    }
+    .alert-banner {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid #dc2626;
+      color: #fca5a5;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <div class="header">
+    <div class="header-title">
+      <h1>
+        Cerevyn Solutions PS04
+        <span class="badge-tag">Azure Support Ticket Automation</span>
+      </h1>
+      <div class="header-sub">
+        Deterministic NLP Classification • Human-in-the-Loop Approval • SQLite Persistence
+      </div>
+    </div>
+    <div class="candidate-info">
+      <div>Candidate: <strong>Keshav Saini</strong> (Roll: <strong>2310990545</strong>)</div>
+      <div style="font-size: 12px; color: #94a3b8;">Chitkara University • B.E. Computer Science</div>
+      <div class="header-links">
+        <a href="/docs" target="_blank">Swagger API</a>
+        <a href="/health" target="_blank">Health Check</a>
+        <a href="https://github.com/keshu333/cerevyn-ps04-azure-support-ticket-automation" target="_blank">GitHub Repo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Stats Counter -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Total Ingested Tickets</div>
+      <div class="stat-val stat-total" id="stat-total">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pending Human Review</div>
+      <div class="stat-val stat-pending" id="stat-pending">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Approved & Ready</div>
+      <div class="stat-val stat-ready" id="stat-ready">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Uncertain / Flagged Triage</div>
+      <div class="stat-val stat-review" id="stat-review">0</div>
+    </div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="main-grid">
+    
+    <!-- Left Column: Create Ticket Form -->
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Submit Customer Complaint</h2>
+      </div>
+
+      <div class="preset-title">⚡ Quick Presets (Click to Test):</div>
+      <div class="presets">
+        <span class="preset-chip" onclick="applyPreset('billing')">💳 Double Charge (Billing)</span>
+        <span class="preset-chip" onclick="applyPreset('outage')">🚨 500 Outage (Technical)</span>
+        <span class="preset-chip" onclick="applyPreset('locked')">🔒 Locked 2FA (Access)</span>
+        <span class="preset-chip" onclick="applyPreset('guide')">❓ User Guide (General)</span>
+        <span class="preset-chip" onclick="applyPreset('ambiguous')">⚠️ Ambiguous Conflict</span>
+      </div>
+
+      <form id="ticket-form" onsubmit="handleCreateTicket(event)">
+        <div class="form-group">
+          <label for="ticket-id">Ticket ID</label>
+          <div class="input-row">
+            <input type="text" id="ticket-id" required placeholder="e.g. TCK-2026-001">
+            <button type="button" class="btn-secondary" onclick="generateRandomId()">🎲 Random</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ticket-msg">Customer Complaint Message</label>
+          <textarea id="ticket-msg" required placeholder="Enter customer inquiry or complaint (min 5 characters)..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" id="btn-submit">Ingest & Classify Ticket</button>
+      </form>
+
+      <!-- Live Classification Result Card -->
+      <div class="live-output" id="live-output">
+        <h3>Live Classification Result:</h3>
+        <div class="meta-row">
+          <span class="pill" id="out-cat">Billing</span>
+          <span class="pill" id="out-prio">High</span>
+          <span class="pill" id="out-team">Billing Support</span>
+          <span class="pill" id="out-status">Pending Review</span>
+        </div>
+        <p style="font-size: 12px; color: #cbd5e1; margin-bottom: 6px;">
+          <strong>Confidence Score:</strong> <span id="out-conf">0.95</span>
+        </p>
+        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 8px;">
+          <strong>Explanation:</strong> <span id="out-exp"></span>
+        </p>
+        <div id="out-review-warn" class="alert-banner" style="display:none;">
+          ⚠️ Flagged for mandatory human review due to ambiguity or low keyword signal.
+        </div>
+        <div style="font-size: 11px; font-weight:600; color:#94a3b8; margin-top:10px;">Generated Internal Draft Response:</div>
+        <div class="draft-preview" id="out-draft"></div>
+      </div>
+    </div>
+
+    <!-- Right Column: Ticket Triage Queue -->
+    <div class="panel">
+      <div class="panel-header">
+        <h2>Live Support Queue & Human Approval Gate</h2>
+        <button class="btn-secondary" onclick="loadTickets()" style="padding: 4px 10px; font-size: 11px;">🔄 Refresh Queue</button>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        <button class="filter-btn active" onclick="setFilter('all', this)">All Tickets</button>
+        <button class="filter-btn" onclick="setFilter('Pending Review', this)">Pending Review</button>
+        <button class="filter-btn" onclick="setFilter('Ready', this)">Ready (Approved)</button>
+        <button class="filter-btn" onclick="setFilter('Billing', this)">Billing</button>
+        <button class="filter-btn" onclick="setFilter('Technical', this)">Technical</button>
+        <button class="filter-btn" onclick="setFilter('Access', this)">Access</button>
+      </div>
+
+      <!-- Scrollable Ticket List -->
+      <div class="ticket-list" id="ticket-list">
+        <div style="text-align: center; color: #64748b; padding: 40px;">Loading ticket records...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let allTickets = [];
+    let currentFilter = 'all';
+
+    const presets = {
+      billing: {
+        msg: "I was charged twice on my credit card for the annual subscription renewal. Please issue a refund.",
+        prefix: "TCK-BIL"
+      },
+      outage: {
+        msg: "Complete service outage: production servers crashed with 500 internal server error. All users are blocked.",
+        prefix: "TCK-TECH"
+      },
+      locked: {
+        msg: "I am locked out of my corporate account because my 2FA authentication code is expired and not accepted.",
+        prefix: "TCK-ACC"
+      },
+      guide: {
+        msg: "Where can I find the user guide documentation on how to invite secondary team members?",
+        prefix: "TCK-GEN"
+      },
+      ambiguous: {
+        msg: "My invoice payment failed because password reset is broken and throwing a 500 error on the screen.",
+        prefix: "TCK-AMB"
+      }
+    };
+
+    function generateRandomId(prefix = 'TCK') {
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('ticket-id').value = `${prefix}-${rand}`;
+    }
+
+    function applyPreset(key) {
+      const p = presets[key];
+      if (!p) return;
+      generateRandomId(p.prefix);
+      document.getElementById('ticket-msg').value = p.msg;
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      generateRandomId('TCK-BIL');
+      loadTickets();
+    });
+
+    async function loadTickets() {
+      try {
+        const res = await fetch('/tickets');
+        const data = await res.json();
+        allTickets = data.tickets || [];
+        updateStats();
+        renderTickets();
+      } catch (err) {
+        console.error('Failed to load tickets', err);
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('stat-total').innerText = allTickets.length;
+      document.getElementById('stat-pending').innerText = allTickets.filter(t => t.status === 'Pending Review').length;
+      document.getElementById('stat-ready').innerText = allTickets.filter(t => t.status === 'Ready').length;
+      document.getElementById('stat-review').innerText = allTickets.filter(t => t.needs_human_review).length;
+    }
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTickets();
+    }
+
+    function renderTickets() {
+      const container = document.getElementById('ticket-list');
+      let filtered = allTickets;
+
+      if (currentFilter === 'Pending Review' || currentFilter === 'Ready') {
+        filtered = allTickets.filter(t => t.status === currentFilter);
+      } else if (['Billing', 'Technical', 'Access', 'General'].includes(currentFilter)) {
+        filtered = allTickets.filter(t => t.category === currentFilter);
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div style="text-align: center; color: #64748b; padding: 40px;">No tickets found for this filter.</div>';
+        return;
+      }
+
+      container.innerHTML = filtered.map(t => {
+        const catClass = `pill-${t.category.toLowerCase()}`;
+        const prioClass = `prio-${t.priority.toLowerCase()}`;
+        const statusClass = t.status === 'Ready' ? 'status-ready' : 'status-pending';
+
+        return `
+          <div class="ticket-card">
+            <div class="card-top">
+              <div class="card-id">
+                ${t.ticket_id}
+                <span class="pill ${statusClass}">${t.status}</span>
+                ${t.needs_human_review ? '<span class="pill prio-high">⚠️ Needs Triage</span>' : ''}
+              </div>
+              <div style="display:flex; gap:6px;">
+                <span class="pill ${catClass}">${t.category}</span>
+                <span class="pill ${prioClass}">${t.priority}</span>
+              </div>
+            </div>
+            <div class="card-summary">${t.summary}</div>
+            <div class="card-message">"${t.message}"</div>
+            
+            <div style="font-size:11px; color:#94a3b8; margin-bottom:4px;">
+              <strong>Assigned Team:</strong> ${t.assigned_team} &nbsp;•&nbsp; 
+              <strong>Confidence:</strong> ${(t.confidence_score * 100).toFixed(0)}%
+            </div>
+
+            <div class="draft-preview">${t.draft_response}</div>
+
+            <div class="card-footer">
+              <div class="audit-text">
+                ${t.approved_by ? `Approved by <strong>${t.approved_by}</strong> at ${t.approved_at.substring(0, 19).replace('T', ' ')}` : 'Awaiting human supervisor sign-off'}
+              </div>
+              ${t.status === 'Pending Review' ? `
+                <button class="btn-approve" onclick="approveTicket('${t.ticket_id}')">Approve as Supervisor</button>
+              ` : `
+                <span style="color:#10b981; font-size:12px; font-weight:600;">✓ Approved &amp; Finalized</span>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function handleCreateTicket(e) {
+      e.preventDefault();
+      const ticketId = document.getElementById('ticket-id').value.trim();
+      const message = document.getElementById('ticket-msg').value.trim();
+      const btn = document.getElementById('btn-submit');
+
+      btn.innerText = 'Classifying...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/tickets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ticket_id: ticketId, message })
+        });
+
+        if (res.status === 409) {
+          alert(`Error: Ticket ID '${ticketId}' already exists. Please choose a unique ID.`);
+          return;
+        }
+        if (!res.ok) {
+          const err = await res.json();
+          alert('Validation Error: ' + JSON.stringify(err.detail));
+          return;
+        }
+
+        const data = await res.json();
+        
+        // Show in live output box
+        const box = document.getElementById('live-output');
+        box.style.display = 'block';
+
+        const catEl = document.getElementById('out-cat');
+        catEl.innerText = data.category;
+        catEl.className = `pill pill-${data.category.toLowerCase()}`;
+
+        const prioEl = document.getElementById('out-prio');
+        prioEl.innerText = data.priority;
+        prioEl.className = `pill prio-${data.priority.toLowerCase()}`;
+
+        document.getElementById('out-team').innerText = data.assigned_team;
+        document.getElementById('out-status').innerText = data.status;
+        document.getElementById('out-status').className = 'pill status-pending';
+
+        document.getElementById('out-conf').innerText = `${(data.confidence_score * 100).toFixed(0)}% (${data.confidence_score})`;
+        document.getElementById('out-exp').innerText = data.classification_explanation;
+        document.getElementById('out-draft').innerText = data.draft_response;
+
+        document.getElementById('out-review-warn').style.display = data.needs_human_review ? 'block' : 'none';
+
+        // Refresh list
+        await loadTickets();
+        generateRandomId();
+      } catch (err) {
+        console.error(err);
+        alert('Network or server error while submitting ticket.');
+      } finally {
+        btn.innerText = 'Ingest & Classify Ticket';
+        btn.disabled = false;
+      }
+    }
+
+    async function approveTicket(ticketId) {
+      const reviewer = prompt('Enter supervisor name for human-in-the-loop audit log:', 'Supervisor Keshav Saini');
+      if (!reviewer) return;
+
+      try {
+        const res = await fetch(`/tickets/${ticketId}/approve`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reviewer_name: reviewer, notes: 'Verified and approved for dispatch.' })
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          alert('Approval error: ' + err.detail);
+          return;
+        }
+
+        await loadTickets();
+      } catch (err) {
+        console.error(err);
+        alert('Failed to approve ticket.');
+      }
+    }
+  </script>
+</body>
+</html>
